@@ -1,0 +1,20 @@
+{
+    "name": "ing-test",
+    "version": "1.0.0",
+    "description": "",
+    "main": "rollup.config.js",
+    "scripts": {
+        "start": "rollup -c",
+        "build": "rollup -c"
+    },
+    "keywords": [],
+    "author": "@vah7id",
+    "licence": "ISC",
+    "devDependencies": {
+        "rollup-plugin-serve": "^1.1.0"
+    },
+    "dependencies": {
+        "@lion/core": "^0.17.0",
+        "@lion/steps": "^0.8.3"
+    }
+}
