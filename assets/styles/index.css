@@ -20,6 +20,12 @@ button {
     color: white;
 }
 
+.btn-disabled {
+    opacity: 0.5;
+    background: #eee;
+    color: black;
+}
+
 /* ================ STEPS ================== */
 
 .steps-wrapper {
@@ -102,4 +108,18 @@ button {
 
 .delivery-wrapper footer button:last-child {
     float: right;
+}
+
+/* ================ PAYMENT ================= */
+
+.payment-option {
+    cursor: pointer;
+    border: 1px solid #eee;
+    margin: 20px 0;
+    padding: 15px 30px 15px 15px;
+    border-bottom: 2px solid #ddd;
+}
+
+.payment-active {
+    border: 2px solid green;
 }

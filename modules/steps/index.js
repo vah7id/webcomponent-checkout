@@ -44,7 +44,7 @@ class Steps extends HTMLElement {
                 <div class="step-container">
                     ${this.step === 1 ? html`<basket-step .basketItems=${this.basketItems} .handleStepChange=${handleStepChange.bind(this)}></basket-step>`: ``}
                     ${this.step === 2 ? html`<delivery-step .basketItems=${this.basketItems} .handleStepChange=${handleStepChange.bind(this)}></delivery-step>`: ``}
-                    ${this.step === 3 ? html`<payment-step .handleStepChange=${handleStepChange.bind(this)}></payment-step>`: ``}
+                    ${this.step === 3 ? html`<payment-step .basketItems=${this.basketItems} .handleStepChange=${handleStepChange.bind(this)}></payment-step>`: ``}
                     ${this.step === 4 ? html`<confirmation-step></confirmation-step>`: ``}
                 </div>
 
