@@ -10,9 +10,9 @@ class Payment extends HTMLElement {
         this.paymentOptions = [];
     }
     validatePayment(orderId, paymentId) {
-        return fetch(`/assets/mocks/payment_validate.json`, {
+        return fetch(`/assets/mocks/payment_validate_${paymentId}.json`, {
             method: "POST",
-            body: JSON.stringify({orderId, paymentId})
+            body: JSON.stringify({orderId})
         }).then(res => res.json()).then(res => {
             // verify when the status of validation is healthy!!!
             if(res.status === 'PAYMENT_CONFIRMED') {
@@ -20,6 +20,8 @@ class Payment extends HTMLElement {
             } else {
                 alert('BAMMM!!! Your balance is not enough to proceed the payment!!!');
             }
+        }).catch(err => {
+            alert('Something is wrong with the services! Please try again...');
         });
     }
     fetchPaymentOptions() {
@@ -58,7 +60,8 @@ class Payment extends HTMLElement {
         }
 
         const _render = () => {
-            const tmp = html`<div class="payment-wrapper">
+            const tmp = html`
+            <div class="payment-wrapper">
                 <h2>Payment</h2>
                 <h3>Total amount to pay: ${this.totalAmount}</h3>
                 <p>Select one of the payment options before proceed your order:</p>

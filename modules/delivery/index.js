@@ -33,6 +33,13 @@ class Delivery extends HTMLElement {
             _render();
         });
 
+        const confirmDeliveryAddress = () => {
+            const addressFields = ['street', 'houseNumber', 'houseNumberAddition', 'postalCode', 'city'];
+            let deliveryAddress = [];
+            addressFields.map(field => deliveryAddress[field] = document.getElementById(field).value)
+            this.handleDeliveryAddress(deliveryAddress);
+        }
+
         const _render = () => {
             const tmp = html`<div class="delivery-wrapper">
             <h2>Delivery information</h2>
@@ -40,16 +47,16 @@ class Delivery extends HTMLElement {
                 <input type="text" .value=${this.customer.fullname} name="fullname" placeholder="Full name"></input>
                 <input type="email" .value=${this.customer.email} name="email" placeholder="Email" ></input>
                 ${!this.hasVoucher ? html`
-                <input type="text" .value=${this.customer.address.street} name="street" placeholder="Street" ></input>
-                <input type="text" .value=${this.customer.address.houseNumber} name="houseNumber" placeholder="House number" ></input>
-                <input type="text" .value=${this.customer.address.houseNumberAddition} name="houseNumberAddition" placeholder="Additional House Number" ></input>
-                <input type="text" .value=${this.customer.address.postalCode}  name="postalCode" placeholder="Postal Code" ></input>
-                <input type="text" .value=${this.customer.address.city}  name="city" placeholder="City" ></input>` : ``}
+                <input type="text" .value=${this.customer.address.street} id="street" name="street" placeholder="Street" ></input>
+                <input type="text" .value=${this.customer.address.houseNumber} id="houseNumber" name="houseNumber" placeholder="House number" ></input>
+                <input type="text" .value=${this.customer.address.houseNumberAddition} id="houseNumberAddition" name="houseNumberAddition" placeholder="Additional House Number" ></input>
+                <input type="text" .value=${this.customer.address.postalCode} id="postalCode" name="postalCode" placeholder="Postal Code" ></input>
+                <input type="text" .value=${this.customer.address.city} id="city" name="city" placeholder="City" ></input>` : ``}
                 <input type="text" .value=${this.customer.phone} name="phone" placeholder="Phone" ></input>
             </form>
             <footer>
                 <button @click=${() => this.handleStepChange(1)}>previous step</button>
-                <button class="btn-primary" @click=${() => this.handleStepChange(3)}>Next step</button>
+                <button class="btn-primary" @click=${() => confirmDeliveryAddress()}>Next step</button>
             </footer>`;
             render(tmp, this);
         }

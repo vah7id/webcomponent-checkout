@@ -14,7 +14,7 @@ class Basket extends HTMLElement {
         const _render = () => {
             const tmp = html`<div class="basket-wrapper">
             
-            ${this.basketItems.map(item => html`<basket-item .item=${item}></basket-item`)}
+            ${this.basketItems.map(item => html`<basket-item .item=${item}></basket-item>`)}
 
             ${this.basketItems.length === 0 ? html`
                 <h3>basket is empty</h3><button>Go to homepage</button>` : 

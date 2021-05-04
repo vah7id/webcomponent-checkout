@@ -8,6 +8,7 @@ class Steps extends HTMLElement {
     constructor() {
         super();
         this.basketItems = [];
+        this.deliveryAddress = [];
     }
     connectedCallback() {
 
@@ -23,6 +24,12 @@ class Steps extends HTMLElement {
         const handleStepChange = (step) => {
             this.step = step;
             _render();
+        }
+
+        // save the delivery address before proceed to payment
+        const handleDeliveryAddress = (address) => {
+            this.deliveryAddress = address;
+            handleStepChange(3);
         }
 
         const _render = () => {
@@ -43,9 +50,9 @@ class Steps extends HTMLElement {
         
                 <div class="step-container">
                     ${this.step === 1 ? html`<basket-step .basketItems=${this.basketItems} .handleStepChange=${handleStepChange.bind(this)}></basket-step>`: ``}
-                    ${this.step === 2 ? html`<delivery-step .basketItems=${this.basketItems} .handleStepChange=${handleStepChange.bind(this)}></delivery-step>`: ``}
+                    ${this.step === 2 ? html`<delivery-step .basketItems=${this.basketItems} .handleDeliveryAddress=${handleDeliveryAddress.bind(this)}></delivery-step>`: ``}
                     ${this.step === 3 ? html`<payment-step .basketItems=${this.basketItems} .handleStepChange=${handleStepChange.bind(this)}></payment-step>`: ``}
-                    ${this.step === 4 ? html`<confirmation-step></confirmation-step>`: ``}
+                    ${this.step === 4 ? html`<confirmation-step .deliveryAddress=${this.deliveryAddress} .basketItems=${this.basketItems}></confirmation-step>`: ``}
                 </div>
 
             </lion-steps>`;
