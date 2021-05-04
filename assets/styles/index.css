@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
 
-body {
+body, input {
     font-family: 'Open Sans', sans-serif;
 }
 
@@ -8,10 +8,16 @@ button {
     font-family: 'Open Sans', sans-serif;
     color: black;
     font-weight: 900;
+    background: #eee;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-    border: 2px solid black;
+    border: none;
+}
+
+.btn-primary {
+    background: #FF6200;
+    color: white;
 }
 
 /* ================ STEPS ================== */
@@ -60,4 +66,40 @@ button {
     padding: 10px 0;
     display: block;
     opacity: 0.7;
+}
+
+/* ================== DELIVERY ================== */
+
+.delivery-wrapper form{
+    display: block;
+    width: 100%;
+    padding: 25px 0;
+    flex-wrap: wrap;
+}
+
+.delivery-wrapper form input {
+    float: left;
+    padding: 8px 15px;
+    font-size: 14px;
+    border:1px solid #ccc;
+    width: 400px;
+    margin: 5px 20px 5px 0;
+}
+
+
+.delivery-wrapper footer {
+    width: 100%;
+    margin-top: 25px;
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+    display: block;
+    float: left;
+}
+
+.delivery-wrapper footer button:first-child {
+    float: left;
+}
+
+.delivery-wrapper footer button:last-child {
+    float: right;
 }

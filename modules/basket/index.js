@@ -4,22 +4,12 @@ import './item.js';
 class Basket extends HTMLElement {
     constructor() {
         super();
-        this.basketItems = [];
-        this.basketSummary = null;
     }
     connectedCallback() {
         
         const confirmBasket = () => {
             this.handleStepChange(2);
         }
-        
-        fetch(`/assets/mocks/basket.json`).then(res => res.json()).then((res) => {
-            this.basketItems = res?.basket;
-            this.basketSummary = res?.basketSummary;
-            _render();
-        }).catch(() => {
-            _render();
-        });
 
         const _render = () => {
             const tmp = html`<div class="basket-wrapper">
@@ -33,6 +23,8 @@ class Basket extends HTMLElement {
 
             render(tmp, this);
         }
+
+        _render();
     }
 }
 
