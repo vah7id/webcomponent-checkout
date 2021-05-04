@@ -9,7 +9,7 @@ class Steps extends HTMLElement {
         super();
     }
     connectedCallback() {
-        const renderLayout = () => {
+        const _render = () => {
             const tmp = html`<lion-steps class="steps-wrapper">
             <lion-step class="step-item" initial-step>
                 <label class=${this.step === 1 ? 'step-active' : ''}>1 Basket</label>
@@ -36,9 +36,9 @@ class Steps extends HTMLElement {
         }
         const handleStepChange = (step) => {
             this.step = step;
-            renderLayout();
+            _render();
         }
-        renderLayout();
+        _render();
     }
 }
 

@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+button {
+    font-family: 'Open Sans', sans-serif;
+    color: black;
+    font-weight: 900;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: 2px solid black;
+}
+
+/* ================ STEPS ================== */
+
+.steps-wrapper {
+    width: 920px;
+    margin: 0 auto;
+    display: block;
+}
+
+.step-item {
+    background-color: #eee;
+    width: 25%;
+    float: left;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.step-active {
+    background: #FF6200;
+    padding: 20px 50px;
+    color: white;
+}
+
+.step-container {
+    width: 100%;
+    padding: 100px 0;
+}
+
+/* ================ BASKET ================== */
+
+.basket-item {
+    border: 1px solid #eee;
+    margin: 20px 0;
+    padding: 15px 30px 15px 15px;
+    border-bottom: 2px solid #FF6200;
+}
+
+.basket-item span {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.basket-item small {
+    width: 100%;
+    padding: 10px 0;
+    display: block;
+    opacity: 0.7;
+}
