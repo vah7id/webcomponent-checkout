@@ -5,7 +5,11 @@ class Payment extends HTMLElement {
         super();
     }
     connectedCallback() {
-        const tmp = html`payment`;
+        const tmp = html`<div class="payment-wrapper">
+        Payment
+        <div>
+            <button @click=${() => this.handleStepChange(4)}>Confirm Payment</button>
+        </div>`;
         render(tmp, this);
     }
 }

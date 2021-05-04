@@ -5,7 +5,11 @@ class Confirmation extends HTMLElement {
         super();
     }
     connectedCallback() {
-        const tmp = html`confirmation`;
+        const tmp = html`<div class="confirmation-wrapper">
+        Payment Confirmed
+        <div>
+            <button>Go to homepage</button>
+        </div>`;
         render(tmp, this);
     }
 }

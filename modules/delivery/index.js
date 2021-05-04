@@ -5,7 +5,12 @@ class Delivery extends HTMLElement {
         super();
     }
     connectedCallback() {
-        const tmp = html`delivery`;
+        const tmp = html`<div class="delivery-wrapper">
+            Delivery information
+            <div>
+                <button @click=${() => this.handleStepChange(3)}>Next step</button>
+                <button @click=${() => this.handleStepChange(1)}>previous step</button>
+            </div>`;
         render(tmp, this);
     }
 }
