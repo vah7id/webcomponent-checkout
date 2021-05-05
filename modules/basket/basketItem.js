@@ -1,7 +1,7 @@
 import '@lion/input-stepper/lion-input-stepper.js';
 import { html, render } from '@lion/core';
 import { LionInputStepper } from '@lion/input-stepper';  
-import { MaxLength, MinMaxLength } from '@lion/form-core';
+import { MaxLength } from '@lion/form-core';
 
 class BasketItem extends HTMLElement {
     constructor() {

@@ -94,12 +94,10 @@ button {
     flex-wrap: wrap;
 }
 
-.delivery-wrapper form input {
-    float: left;
+.delivery-wrapper  input {
     padding: 8px 15px;
     font-size: 14px;
     border:1px solid #ccc;
-    width: 400px;
     margin: 5px 20px 5px 0;
 }
 

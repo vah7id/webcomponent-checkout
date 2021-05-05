@@ -14,12 +14,14 @@ class Payment extends HTMLElement {
             method: "POST",
             body: JSON.stringify({orderId})
         }).then(res => res.json()).then(res => {
+            
             // verify when the status of validation is healthy!!!
             if(res.status === 'PAYMENT_CONFIRMED') {
                 this.handleStepChange(4);
             } else {
                 alert('BAMMM!!! Your balance is not enough to proceed the payment!!!');
             }
+
         }).catch(err => {
             alert('Something is wrong with the services! Please try again...');
         });
@@ -53,7 +55,6 @@ class Payment extends HTMLElement {
        const selectPaymentOption = (e, payment) => {
             // deselect the other payment options
             document.querySelectorAll('.payment-option').forEach(el => el.classList.remove('payment-active'));
-      
             e.currentTarget.classList.add('payment-active');
             this.paymentId = payment.id;
             _render();
