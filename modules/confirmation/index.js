@@ -1,10 +1,11 @@
-import {html, render} from '../../node_modules/lit-html/lit-html.js';
+import { html, render } from '@lion/core';
 
 class Confirmation extends HTMLElement {
     constructor() {
         super();
     }
     connectedCallback() {
+        console.log(this.deliveryAddress)
         const tmp = html
         `<div class="confirmation-wrapper">
             <h2>Thank you for placing your order!</h2>
@@ -15,14 +16,15 @@ class Confirmation extends HTMLElement {
                 <small>${item.deliveryTime}</small>
             </div>`)}
 
-            <h3>Delivery Address: </h3>
-            
-            <h4>
-                ${this.deliveryAddress.street}, 
-                ${this.deliveryAddress.houseNumber} ${this.deliveryAddress.houseNumberAdditional}
-                ${this.deliveryAddress.postalCode}, 
-                ${this.deliveryAddress.city}
-            </h4>
+            ${this.deliveryAddress.length > 0 ? html`
+                <h3>Delivery Address: </h3>
+                <h4>
+                    ${this.deliveryAddress.street}, 
+                    ${this.deliveryAddress.houseNumber} ${this.deliveryAddress.houseNumberAdditional}
+                    ${this.deliveryAddress.postalCode}, 
+                    ${this.deliveryAddress.city}
+                </h4>
+            ` : ``}
 
             <footer>
                 <button>Go To Homepage</button>

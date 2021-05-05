@@ -1,5 +1,5 @@
-import {html, render} from './node_modules/lit-html/lit-html.js';
-import './modules/steps/index.js';
+import { html, render } from '@lion/core';
+import './modules/steps';  
 
 class App extends HTMLElement {
     constructor() {

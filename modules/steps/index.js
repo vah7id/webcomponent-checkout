@@ -1,8 +1,9 @@
-import {html, render} from '../../node_modules/lit-html/lit-html.js';
-import '../../modules/basket/index.js';
-import '../../modules/payment/index.js';
-import '../../modules/delivery/index.js';
-import '../../modules/confirmation/index.js';
+import { html, render } from '@lion/core';
+
+import '../../modules/basket';
+import '../../modules/payment';
+import '../../modules/delivery';
+import '../../modules/confirmation';
 
 class Steps extends HTMLElement {
     constructor() {
@@ -19,6 +20,18 @@ class Steps extends HTMLElement {
         }).catch(() => {
             _render();
         });
+
+        // remove the item from basket
+        const removeBasketItem = (item) => {
+            const idx = this.basketItems.findIndex(_item => _item ? _item.productId === item.productId : false);
+            delete this.basketItems[idx];
+        }
+
+        // update the item details in basket
+        const updateBasketItem = (item) => {
+            const idx = this.basketItems.findIndex(_item => _item ? _item.productId === item.productId : false);
+            this.basketItems[idx] = item;
+        }
 
         // re-render the steps status after navigation between steps
         const handleStepChange = (step) => {
@@ -49,8 +62,8 @@ class Steps extends HTMLElement {
                 </lion-step>
         
                 <div class="step-container">
-                    ${this.step === 1 ? html`<basket-step .basketItems=${this.basketItems} .handleStepChange=${handleStepChange.bind(this)}></basket-step>`: ``}
-                    ${this.step === 2 ? html`<delivery-step .basketItems=${this.basketItems} .handleDeliveryAddress=${handleDeliveryAddress.bind(this)}></delivery-step>`: ``}
+                    ${this.step === 1 ? html`<basket-step .updateBasketItem=${updateBasketItem} .removeBasketItem=${removeBasketItem} .basketItems=${this.basketItems} .handleStepChange=${handleStepChange.bind(this)}></basket-step>`: ``}
+                    ${this.step === 2 ? html`<delivery-step .basketItems=${this.basketItems} .handleDeliveryAddress=${handleDeliveryAddress.bind(this)} .handleStepChange=${handleStepChange.bind(this)}></delivery-step>`: ``}
                     ${this.step === 3 ? html`<payment-step .basketItems=${this.basketItems} .handleStepChange=${handleStepChange.bind(this)}></payment-step>`: ``}
                     ${this.step === 4 ? html`<confirmation-step .deliveryAddress=${this.deliveryAddress} .basketItems=${this.basketItems}></confirmation-step>`: ``}
                 </div>

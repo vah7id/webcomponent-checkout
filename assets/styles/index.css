@@ -26,6 +26,12 @@ button {
     color: black;
 }
 
+.btn-delete {
+    padding: 2px 5px;
+    font-size: 12px;
+    border: 1px solid #ccc;
+}
+
 /* ================ STEPS ================== */
 
 .steps-wrapper {
@@ -53,6 +59,11 @@ button {
     padding: 100px 0;
 }
 
+.input-stepper-wrapper {
+    float: right;
+    margin-top: -40px;
+}
+
 /* ================ BASKET ================== */
 
 .basket-item {
@@ -68,7 +79,7 @@ button {
 }
 
 .basket-item small {
-    width: 100%;
+    width: 50%;
     padding: 10px 0;
     display: block;
     opacity: 0.7;

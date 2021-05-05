@@ -1,5 +1,5 @@
-import {html, render} from '../../node_modules/lit-html/lit-html.js';
-import './paymentOption.js';
+import { html, render } from '@lion/core';
+import './paymentOption';
 
 class Payment extends HTMLElement {
     constructor() {

@@ -1,4 +1,4 @@
-import {html, render} from '../../node_modules/lit-html/lit-html.js';
+import { html, render } from '@lion/core';
 
 class Delivery extends HTMLElement {
     constructor() {
@@ -34,9 +34,11 @@ class Delivery extends HTMLElement {
         });
 
         const confirmDeliveryAddress = () => {
-            const addressFields = ['street', 'houseNumber', 'houseNumberAddition', 'postalCode', 'city'];
             let deliveryAddress = [];
-            addressFields.map(field => deliveryAddress[field] = document.getElementById(field).value)
+            if(!this.hasVoucher) {
+                const addressFields = ['street', 'houseNumber', 'houseNumberAddition', 'postalCode', 'city'];
+                addressFields.map(field => deliveryAddress[field] = document.getElementById(field).value)
+            }
             this.handleDeliveryAddress(deliveryAddress);
         }
 
