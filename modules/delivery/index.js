@@ -1,6 +1,8 @@
 import { html, render } from '@lion/core';
 import '@lion/input/define';
 import  '@lion/input/lion-input';  
+import './addressFields';
+import { getCustomerDetails } from './actions';
 
 class Delivery extends HTMLElement {
     constructor() {
@@ -27,7 +29,7 @@ class Delivery extends HTMLElement {
         this.hasVoucher = this.basketItems.every((item) => item.fulfillmentType === 'VOUCHER');
 
         // prefill customer address only when it's available
-        fetch(`/assets/mocks/customer.json`).then(res => res.json()).then((res) => {
+        getCustomerDetails().then((res) => {
             this.customer.address = res?.addresses[0];
             this.customer.fullname = res?.correspondenceName;
             this.customer.email = res?.personalEmailAddress;
@@ -39,6 +41,7 @@ class Delivery extends HTMLElement {
 
         const confirmDeliveryAddress = () => {
             let deliveryAddress = [];
+            // update the delivery address in global state
             if(!this.hasVoucher) {
                 this.addressFields.map(field => deliveryAddress[field] = document.getElementById(field).value);
             }
@@ -48,26 +51,12 @@ class Delivery extends HTMLElement {
         const _render = () => {
             const tmp = html`
             <div class="delivery-wrapper">
-           
                 <h2>Delivery information</h2>
-                
-                <form name="addressFields">
-                    <lion-input type="text" .value=${this.customer.fullname} name="fullname" placeholder="Full name"></lion-input>
-                    <lion-input type="email" .value=${this.customer.email} name="email" placeholder="Email" ></lion-input>
-                    ${!this.hasVoucher ? html`
-                    <lion-input type="text" .value=${this.customer.address.street} id="street" name="street" placeholder="Street" ></lion-input>
-                    <lion-input type="text" .value=${this.customer.address.houseNumber} id="houseNumber" name="houseNumber" placeholder="House number" ></lion-input>
-                    <lion-input type="text" .value=${this.customer.address.houseNumberAddition} id="houseNumberAddition" name="houseNumberAddition" placeholder="Additional House Number" ></lion-input>
-                    <lion-input type="text" .value=${this.customer.address.postalCode} id="postalCode" name="postalCode" placeholder="Postal Code" ></lion-input>
-                    <lion-input type="text" .value=${this.customer.address.city} id="city" name="city" placeholder="City" ></lion-input>` : ``}
-                    <lion-input type="text" .value=${this.customer.phone} name="phone" placeholder="Phone" ></lion-input>
-                </form>
-
+                <address-fields .customer=${this.customer} .hasVoucher=${this.hasVoucher}></address-fields>
                 <footer>
                     <button @click=${() => this.handleStepChange(1)}>previous step</button>
                     <button class="btn-primary" @click=${() => confirmDeliveryAddress()}>Next step</button>
                 </footer>
-
             </div>`;
             render(tmp, this);
         }

@@ -4,6 +4,9 @@ import '../../modules/basket';
 import '../../modules/payment';
 import '../../modules/delivery';
 import '../../modules/confirmation';
+import './stepsTab';
+
+import { getBasketItems } from './actions';
 
 class Steps extends HTMLElement {
     constructor() {
@@ -14,7 +17,7 @@ class Steps extends HTMLElement {
     connectedCallback() {
 
         // fetch the basket items before rendering the steps
-        fetch(`/assets/mocks/basket.json`).then(res => res.json()).then((res) => {
+        getBasketItems().then((res) => {
             this.basketItems = res?.basket;
             _render();
         }).catch(() => {
@@ -40,32 +43,22 @@ class Steps extends HTMLElement {
         // re-render the steps status after navigation between steps
         const handleStepChange = (step) => {
             this.step = step;
+            
             _render();
         }
 
         // save the delivery address before proceed to payment
         const handleDeliveryAddress = (address) => {
             this.deliveryAddress = address;
-            console.log(address)
             handleStepChange(3);
         }
 
         const _render = () => {
             const tmp = html`
             <lion-steps class="steps-wrapper">
-                <lion-step class="step-item" initial-step>
-                    <label class=${this.step === 1 ? 'step-active' : ''}>1 Basket</label>
-                </lion-step>
-                <lion-step class="step-item">
-                    <label class=${this.step === 2 ? 'step-active' : ''}>2 Delivery</label>
-                </lion-step>
-                <lion-step class="step-item">
-                    <label class=${this.step === 3 ? 'step-active' : ''}>3 Payment</label>
-                </lion-step>
-                <lion-step class="step-item">
-                    <label class=${this.step === 4 ? 'step-active' : ''}>4 Confirmation</label>
-                </lion-step>
-        
+                
+                <steps-tab .step=${this.step}></steps-tab>
+                
                 <div class="step-container">
                     ${this.step === 1 ? html`
                         <basket-step 

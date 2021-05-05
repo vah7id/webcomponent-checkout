@@ -1,5 +1,6 @@
 import { html, render } from '@lion/core';
 import './paymentOption';
+import { fetchPaymentOptions, validatePayment, reserveBasket } from './actions';
 
 class Payment extends HTMLElement {
     constructor() {
@@ -9,12 +10,8 @@ class Payment extends HTMLElement {
         this.totalAmount = null;
         this.paymentOptions = [];
     }
-    validatePayment(orderId, paymentId) {
-        return fetch(`/assets/mocks/payment_validate_${paymentId}.json`, {
-            method: "POST",
-            body: JSON.stringify({orderId})
-        }).then(res => res.json()).then(res => {
-            
+    async validatePayment(orderId, paymentId) {
+        return validatePayment(orderId, paymentId).then(res => {
             // verify when the status of validation is healthy!!!
             if(res.status === 'PAYMENT_CONFIRMED') {
                 this.handleStepChange(4);
@@ -26,35 +23,29 @@ class Payment extends HTMLElement {
             alert('Something is wrong with the services! Please try again...');
         });
     }
-    fetchPaymentOptions() {
-        return fetch(`/assets/mocks/payment_options.json`).then(res => res.json());
-    }
     connectedCallback() {
         //1. reserve the basket first and get the order id
         //2. fetch payment options and render
         //3. send payment information to server to validate
         //4. If it was valid go to confirmation step otherwise show error
         
-        fetch(`/assets/mocks/reserve_basket.json`,{
-            method: 'POST', body: JSON.stringify(this.basketItems)
-        })
-            .then(res => res.json())
-            .then((res) => {
+        reserveBasket(this.basketItems).then((res) => {
                 this.orderId = res?.orderId;
                 this.totalAmount = res?.total_amount;
                 
-                this.fetchPaymentOptions().then(res => {
+                fetchPaymentOptions().then(res => {
                     this.paymentOptions = res?.options;
                     _render();
                 }).catch(err => {
-                    //TODO: popup error notification message
+                    alert('cannot fetch any payment options!! Try again...')
                     _render();
                 });
         });
 
        const selectPaymentOption = (e, payment) => {
-            // deselect the other payment options
+            // deselect the other payment options first
             document.querySelectorAll('.payment-option').forEach(el => el.classList.remove('payment-active'));
+
             e.currentTarget.classList.add('payment-active');
             this.paymentId = payment.id;
             _render();

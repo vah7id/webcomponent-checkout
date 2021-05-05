@@ -2,13 +2,11 @@ import '@lion/input-stepper/lion-input-stepper.js';
 import { html, render } from '@lion/core';
 import { LionInputStepper } from '@lion/input-stepper';  
 import { MaxLength } from '@lion/form-core';
+import { skuValidator } from './utils';
 
 class BasketItem extends HTMLElement {
     constructor() {
         super();
-    }
-    skuValidator(modelValue) {
-        return modelValue > this.item.availableStock ? 'OUT OF STOCK' : ''
     }
     connectedCallback() {
 
@@ -19,7 +17,6 @@ class BasketItem extends HTMLElement {
         }
 
         const _render = () => {
-            console.log(this.item)
             const tmp = html`
             <div class="basket-item">
                 
@@ -31,16 +28,16 @@ class BasketItem extends HTMLElement {
     
                 <lion-input-stepper 
                     class="input-stepper-wrapper"
-                    .validators="${[
-                        new MaxLength(1, { getMessage: ({ modelValue }) => this.skuValidator(modelValue) })
-                    ]}"
+                    step="1" 
+                    min="1" 
+                    name="quantity"
                     value=${this.item.quantity} 
                     max=${this.item.availableStock} 
                     @click=${(e) => updateQuantity(e)}
                     @keyup=${(e) => updateQuantity(e)}
-                    step="1" 
-                    min="1" 
-                    name="quantity">
+                    .validators="${[
+                        new MaxLength(1, { getMessage: ({ modelValue }) => skuValidator(this.item, modelValue) })
+                    ]}">
                 </lion-input-stepper>
                 
             </div>`;

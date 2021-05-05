@@ -8,10 +8,6 @@ class Basket extends HTMLElement {
     
     connectedCallback() {
         
-        const confirmBasket = () => {
-            this.handleStepChange(2);
-        }
-
         const removeItem = (item) => {
             this.removeBasketItem(item);
             _render();
@@ -34,7 +30,7 @@ class Basket extends HTMLElement {
                 )}
                 ${this.basketItems.filter(Boolean).length === 0 ? html`
                     <h3>BASKET IS EMPTY!! GO SHOPPING :)</h3><button>Go to homepage</button>` : 
-                    html`<button @click=${confirmBasket}>Next step</button>`
+                    html`<button @click=${() => this.handleStepChange(2)}>Next step</button>`
                 }
             </div>`;
             render(tmp, this);
