@@ -1,5 +1,5 @@
 import { html, render } from '@lion/core';
-import './paymentOption';
+import './components/paymentOption';
 import { fetchPaymentOptions, validatePayment, reserveBasket } from './actions';
 
 class Payment extends HTMLElement {
@@ -64,7 +64,7 @@ class Payment extends HTMLElement {
             const tmp = html`
             <div class="payment-wrapper">
                 <h2>Payment</h2>
-                <h3>Total amount to pay: ${this.totalAmount.toFixed(3)}</h3>
+                <h3>Total amount to pay: ${this.totalAmount}</h3>
                 <p>Select one of the payment options before proceed your order:</p>
                 
                 ${this.paymentOptions.map(paymentOption => 

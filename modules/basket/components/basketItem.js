@@ -2,7 +2,7 @@ import '@lion/input-stepper/lion-input-stepper.js';
 import { html, render } from '@lion/core';
 import { LionInputStepper } from '@lion/input-stepper';  
 import { MaxLength } from '@lion/form-core';
-import { skuValidator } from './utils';
+import { skuValidator } from '../utils';
 
 class BasketItem extends HTMLElement {
     constructor() {
@@ -24,7 +24,7 @@ class BasketItem extends HTMLElement {
                 <span>${this.item.title}</span>
                 <small>${this.item.deliveryTime}</small>
                 
-                <button @click=${() => this.removeItem(this.item)} class="btn-delete">X Remove from basket</button>
+                <button @click=${this.removeItem} class="btn-delete">X Remove from basket</button>
     
                 <lion-input-stepper 
                     class="input-stepper-wrapper"

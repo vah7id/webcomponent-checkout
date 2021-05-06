@@ -4,7 +4,7 @@ import '../../modules/basket';
 import '../../modules/payment';
 import '../../modules/delivery';
 import '../../modules/confirmation';
-import './stepsTab';
+import './components/stepsTab';
 
 import { getBasketItems } from './actions';
 
@@ -31,7 +31,9 @@ class Steps extends HTMLElement {
         // remove the item from basket
         const removeBasketItem = (item) => {
             const idx = findIndexBasketItem(item);
-            delete this.basketItems[idx];
+            if(idx > -1) {
+                this.basketItems.splice(idx, 1);
+            }
         }
 
         // update the item details in basket

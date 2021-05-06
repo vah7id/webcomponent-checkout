@@ -1,5 +1,5 @@
 import { html, render } from '@lion/core';
-import './basketItem';
+import './components/basketItem';
 
 class Basket extends HTMLElement {
     constructor() {
@@ -8,9 +8,9 @@ class Basket extends HTMLElement {
     
     connectedCallback() {
         
-        const removeItem = (item) => {
+        const removeItem = (e, item) => {
             this.removeBasketItem(item);
-            _render();
+            e.currentTarget.parentNode.remove();
         }
 
         const updateItem = (item) => {
@@ -24,7 +24,7 @@ class Basket extends HTMLElement {
                 ${this.basketItems.map(item => html`
                     <basket-item 
                         .updateItem=${updateItem} 
-                        .removeItem=${removeItem} 
+                        .removeItem=${(e) => removeItem(e, item)} 
                         .item=${item}>
                     </basket-item>`
                 )}

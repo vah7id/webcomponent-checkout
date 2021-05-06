@@ -1,7 +1,7 @@
 import { html, render } from '@lion/core';
 import '@lion/input/define';
 import  '@lion/input/lion-input';  
-import './addressFields';
+import './components/addressFields';
 import { getCustomerDetails } from './actions';
 
 class Delivery extends HTMLElement {
