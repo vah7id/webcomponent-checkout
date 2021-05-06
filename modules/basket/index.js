@@ -5,12 +5,17 @@ class Basket extends HTMLElement {
     constructor() {
         super();
     }
-    
     connectedCallback() {
         
         const removeItem = (e, item) => {
             this.removeBasketItem(item);
             e.currentTarget.parentNode.remove();
+
+            // show empty basket message after remove all items
+            if(this.parentNode.querySelectorAll('.basket-item').length === 0) {
+                this.querySelector('.basket-empty').style.display = 'block';
+                _render();
+            }
         }
 
         const updateItem = (item) => {
@@ -28,10 +33,11 @@ class Basket extends HTMLElement {
                         .item=${item}>
                     </basket-item>`
                 )}
-                ${this.basketItems.filter(Boolean).length === 0 ? html`
-                    <h3>BASKET IS EMPTY!! GO SHOPPING :)</h3><button>Go to homepage</button>` : 
-                    html`<button @click=${() => this.handleStepChange(2)}>Next step</button>`
-                }
+                <div class="basket-empty">
+                    <h3>BASKET IS EMPTY!! GO SHOPPING :)</h3>
+                    <button>Go to homepage</button>
+                </div>
+                ${this.basketItems.length > 0 ? html`<button @click=${() => this.handleStepChange(2)}>Next step</button>` : ``}
             </div>`;
             render(tmp, this);
         }

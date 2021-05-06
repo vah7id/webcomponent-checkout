@@ -64,6 +64,11 @@ button {
     margin-top: -40px;
 }
 
+.input-stepper-wrapper button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
 /* ================ BASKET ================== */
 
 .basket-item {
@@ -83,6 +88,10 @@ button {
     padding: 10px 0;
     display: block;
     opacity: 0.7;
+}
+
+.basket-empty {
+    display: none;
 }
 
 /* ================== DELIVERY ================== */
