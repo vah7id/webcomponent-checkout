@@ -4,6 +4,14 @@ body, input {
     font-family: 'Open Sans', sans-serif;
 }
 
+*[data-tag-name="lion-validation-feedback"] {
+    color: red;
+    font-size: 12px; 
+    margin-bottom: 10px;
+    width: 100%;
+    float: left;
+}
+
 button {
     font-family: 'Open Sans', sans-serif;
     color: black;
@@ -118,6 +126,11 @@ button {
     padding-top: 20px;
     display: block;
     float: left;
+}
+
+.delivery-wrapper footer button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .delivery-wrapper footer button:first-child {

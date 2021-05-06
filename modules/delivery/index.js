@@ -23,6 +23,32 @@ class Delivery extends HTMLElement {
         this.hasVoucher = false;
         this.addressFields = Object.keys(this.customer.address);
     }
+
+    updateAddress() {
+        // handle side effects of address field changes
+        this.validateForm();
+    }
+
+    validateForm() {
+        let isValid = true;
+        const formInputs = document.querySelectorAll('form[name="addressFields"] input');
+        const submitBtnEl = document.querySelector('.btn-primary');
+
+        formInputs.forEach(input => {
+            if(input.getAttribute('aria-invalid') === "true" || 
+            (input.getAttribute('aria-required') === "true" && input.value === '')) {
+                isValid = false;
+            }
+        });
+        
+        // disabled the submit button when the form is not valid
+        if(isValid) {
+            submitBtnEl.removeAttribute('disabled');
+        } else {
+            submitBtnEl.setAttribute('disabled', 'true');
+        }
+    }
+
     connectedCallback() {
 
         // check if all the items in the basket are voucher
@@ -37,6 +63,8 @@ class Delivery extends HTMLElement {
             _render();
         }).catch(() => {
             _render();
+            // by default disable the next step button
+            document.querySelector('.btn-primary').setAttribute('disabled', 'true');
         });
 
         const confirmDeliveryAddress = () => {
@@ -52,7 +80,11 @@ class Delivery extends HTMLElement {
             const tmp = html`
             <div class="delivery-wrapper">
                 <h2>Delivery information</h2>
-                <address-fields .customer=${this.customer} .hasVoucher=${this.hasVoucher}></address-fields>
+                <address-fields 
+                    .updateAddress=${this.updateAddress.bind(this)} 
+                    .customer=${this.customer} 
+                    .hasVoucher=${this.hasVoucher}>
+                </address-fields>
                 <footer>
                     <button @click=${() => this.handleStepChange(1)}>previous step</button>
                     <button class="btn-primary" @click=${() => confirmDeliveryAddress()}>Next step</button>
