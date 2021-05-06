@@ -34,7 +34,7 @@ class Basket extends HTMLElement {
                     </basket-item>`
                 )}
                 <div class="basket-empty">
-                    <h3>BASKET IS EMPTY!! GO SHOPPING :)</h3>
+                    <h3>BASKET IS EMPTY :( GO SHOPPING!!!</h3>
                     <button>Go to homepage</button>
                 </div>
                 ${this.basketItems.length > 0 ? html`<button @click=${() => this.handleStepChange(2)}>Next step</button>` : ``}

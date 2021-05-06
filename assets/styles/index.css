@@ -43,7 +43,8 @@ button {
 /* ================ STEPS ================== */
 
 .steps-wrapper {
-    width: 920px;
+    width: 100%;
+    max-width: 920px;
     margin: 0 auto;
     display: block;
 }
@@ -160,5 +161,20 @@ button {
 .confirmation-wrapper h3 {
     background: #FF6200;
     padding: 10px;
+    color: white;
     border-bottom: 2px dashed white;
+}
+
+/* ================= MEDIAQUERIES ============== */
+
+@media only screen and (max-width: 600px) {
+    .step-item  {
+        width: 50%;
+    }
+    .step-container {
+        padding-top: 150px !important;
+    }
+    input[name="quantity"] {
+        width: 50px;
+    }
 }
