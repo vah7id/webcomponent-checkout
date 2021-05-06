@@ -9,28 +9,27 @@ import './components/stepsTab';
 import { getBasketItems } from './actions';
 
 class Steps extends HTMLElement {
+    
     constructor() {
         super();
         this.basketItems = [];
         this.deliveryAddress = [];
     }
+    
     connectedCallback() {
 
         // fetch the basket items before rendering the steps
         getBasketItems().then((res) => {
             this.basketItems = res?.basket;
             _render();
-        }).catch(() => {
+        }).catch((err) => {
+            //TODO: show general error notification
             _render();
         });
 
-        const findIndexBasketItem = (item) => {
-            return this.basketItems.findIndex(_item => _item ? _item.productId === item.productId : false);;
-        }
-
         // remove the item from basket
         const removeBasketItem = (item) => {
-            const idx = findIndexBasketItem(item);
+            const idx = this.basketItems.findIndex(_item => _item ? _item.productId === item.productId : false);
             if(idx > -1) {
                 this.basketItems.splice(idx, 1);
             }
@@ -38,21 +37,20 @@ class Steps extends HTMLElement {
 
         // update the item details in basket
         const updateBasketItem = (item) => {
-            const idx = findIndexBasketItem(item);
+            const idx = this.basketItems.findIndex(_item => _item ? _item.productId === item.productId : false);
             this.basketItems[idx] = item;
+        }
+
+        // save the delivery address in state
+        const handleDeliveryAddress = (address) => {
+            this.deliveryAddress = address;
+            handleStepChange(3);
         }
 
         // re-render the steps status after navigation between steps
         const handleStepChange = (step) => {
             this.step = step;
-            
             _render();
-        }
-
-        // save the delivery address before proceed to payment
-        const handleDeliveryAddress = (address) => {
-            this.deliveryAddress = address;
-            handleStepChange(3);
         }
 
         const _render = () => {
@@ -67,20 +65,20 @@ class Steps extends HTMLElement {
                             .updateBasketItem=${updateBasketItem} 
                             .removeBasketItem=${removeBasketItem} 
                             .basketItems=${this.basketItems} 
-                            .handleStepChange=${handleStepChange.bind(this)}>
+                            .handleStepChange=${handleStepChange}>
                         </basket-step>`: ``
                     }
                     ${this.step === 2 ? html`
                         <delivery-step 
                             .basketItems=${this.basketItems} 
-                            .handleDeliveryAddress=${handleDeliveryAddress.bind(this)} 
-                            .handleStepChange=${handleStepChange.bind(this)}>
+                            .handleDeliveryAddress=${handleDeliveryAddress} 
+                            .handleStepChange=${handleStepChange}>
                         </delivery-step>`: ``
                     }
                     ${this.step === 3 ? html`
                         <payment-step 
                             .basketItems=${this.basketItems} 
-                            .handleStepChange=${handleStepChange.bind(this)}>
+                            .handleStepChange=${handleStepChange}>
                         </payment-step>`: ``
                     }
                     ${this.step === 4 ? html`

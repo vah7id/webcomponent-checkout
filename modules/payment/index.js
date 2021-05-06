@@ -10,6 +10,7 @@ class Payment extends HTMLElement {
         this.totalAmount = null;
         this.paymentOptions = [];
     }
+    
     async validatePayment(orderId, paymentId) {
         return validatePayment(orderId, paymentId).then(res => {
             // verify when the status of validation is healthy!!!
@@ -23,10 +24,12 @@ class Payment extends HTMLElement {
             alert('Something is wrong with the services! Please try again...');
         });
     }
+
     getTotalPriceWithDiscount(total, discount) {
         const deductAmount = (total * discount) / 100;
         return total - deductAmount;
     }
+
     connectedCallback() {
         //1. reserve the basket first and get the order id
         //2. fetch payment options and render
@@ -54,7 +57,7 @@ class Payment extends HTMLElement {
        const selectPaymentOption = (e, payment) => {
             // deselect the other payment options first
             document.querySelectorAll('.payment-option').forEach(el => el.classList.remove('payment-active'));
-
+            
             e.currentTarget.classList.add('payment-active');
             this.paymentId = payment.id;
             _render();

@@ -1,13 +1,16 @@
 import { html, render } from '@lion/core';
 
 class StepsTab extends HTMLElement {
+    
     constructor() {
         super();
         this.selectedStep = 1;
     }
+    
     set step(newValue) {
         this.setAttribute('step', newValue);
     }
+    
     static get observedAttributes() {
         return ['step'];
     }
