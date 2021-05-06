@@ -136,7 +136,7 @@ button {
 /* ================= CONFIRMATION============== */
 
 .confirmation-wrapper h3 {
-    background: lightblue;
+    background: #FF6200;
     padding: 10px;
     border-bottom: 2px dashed darkblue;
 }

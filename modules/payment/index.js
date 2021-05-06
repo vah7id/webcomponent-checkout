@@ -23,6 +23,10 @@ class Payment extends HTMLElement {
             alert('Something is wrong with the services! Please try again...');
         });
     }
+    getTotalPriceWithDiscount(total, discount) {
+        const deductAmount = (total * discount) / 100;
+        return total - deductAmount;
+    }
     connectedCallback() {
         //1. reserve the basket first and get the order id
         //2. fetch payment options and render
@@ -32,6 +36,11 @@ class Payment extends HTMLElement {
         reserveBasket(this.basketItems).then((res) => {
                 this.orderId = res?.orderId;
                 this.totalAmount = res?.total_amount;
+
+                // apply 10% discount when the basket length is more than 3 Hooray!!!
+                if(this.basketItems.length >= 3) {
+                    this.totalAmount = this.getTotalPriceWithDiscount(this.totalAmount, 10);
+                }
                 
                 fetchPaymentOptions().then(res => {
                     this.paymentOptions = res?.options;
@@ -55,7 +64,7 @@ class Payment extends HTMLElement {
             const tmp = html`
             <div class="payment-wrapper">
                 <h2>Payment</h2>
-                <h3>Total amount to pay: ${this.totalAmount}</h3>
+                <h3>Total amount to pay: ${this.totalAmount.toFixed(3)}</h3>
                 <p>Select one of the payment options before proceed your order:</p>
                 
                 ${this.paymentOptions.map(paymentOption => 
