@@ -132,3 +132,11 @@ button {
 .payment-active {
     border: 2px solid green;
 }
+
+/* ================= CONFIRMATION============== */
+
+.confirmation-wrapper h3 {
+    background: lightblue;
+    padding: 10px;
+    border-bottom: 2px dashed darkblue;
+}

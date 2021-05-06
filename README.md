@@ -107,7 +107,7 @@ The scenario's:
 
 In this flow we want to thank the customer for the order and show an overview of the order information.
 
-The scenario's:
+The scenario's: 
 
 - When the payment is performed step 4 should be active.
 - We should thanks the customer for the order.
