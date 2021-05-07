@@ -1,9 +1,11 @@
 import { html, render } from '@lion/core';
 import './components/basketItem';
+import { getItemsByOrder } from './utils';
 
 class Basket extends HTMLElement {
     constructor() {
         super();
+        this.orderBy = 'fulfillmentType';
     }
     connectedCallback() {
         
@@ -24,20 +26,27 @@ class Basket extends HTMLElement {
         };
 
         const _render = () => {
+            // order the basket items by fulfillmentType
+            const basketItems = getItemsByOrder(this.basketItems, this.orderBy);
+           
             const tmp = html`
             <div class="basket-wrapper">
-                ${this.basketItems.map(item => html`
-                    <basket-item 
-                        .updateItem=${updateItem} 
-                        .removeItem=${(e) => removeItem(e, item)} 
-                        .item=${item}>
-                    </basket-item>`
-                )}
+                ${Object.keys(basketItems).map(fulfillmentType => html`
+                    <h4>${fulfillmentType} ITEMS:<h4>
+                    ${basketItems[fulfillmentType].map(item => html`
+                        <basket-item 
+                            .updateItem=${updateItem} 
+                            .removeItem=${(e) => removeItem(e, item)} 
+                            .item=${item}>
+                        </basket-item>
+                    `)}
+                `)}
                 <div class="basket-empty">
                     <h3>BASKET IS EMPTY :( GO SHOPPING!!!</h3>
                     <button>Go to homepage</button>
                 </div>
-                ${this.basketItems.length > 0 ? html`<button @click=${() => this.handleStepChange(2)}>Next step</button>` : ``}
+                ${this.basketItems.length > 0 ? html`
+                    <button @click=${() => this.handleStepChange(2)}>Next step</button>` : ``}
             </div>`;
             render(tmp, this);
         }

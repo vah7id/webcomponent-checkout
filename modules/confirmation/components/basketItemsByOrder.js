@@ -1,23 +1,13 @@
 import { html, render } from '@lion/core';
+import { getItemsByOrder } from '../../basket/utils';
 
 class BasketItemsByOrder extends HTMLElement {
     constructor() {
         super();
     }
-    getItemsByOrder(items, orderBy) {
-        let orderedItems = [];
-        const orderSet = new Set(items.map(item => {
-            return item[orderBy];
-        }));
-        // map all the items by orderSet unique keys
-        Array.from(orderSet).map(order => {
-            orderedItems[order] = items.filter(item => item[orderBy] !== order);
-        });
-        return orderedItems;
-    }
     connectedCallback() {
         // fetch items ordered by attribute[orderBy]
-        const itemsByOrder = this.getItemsByOrder(this.basketItems, this.orderBy);
+        const itemsByOrder = getItemsByOrder(this.basketItems, this.orderBy);
 
         const tmp = html`
                 ${Object.keys(itemsByOrder).map(order => order && html`
