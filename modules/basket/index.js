@@ -28,7 +28,7 @@ class Basket extends HTMLElement {
         const _render = () => {
             // order the basket items by fulfillmentType
             const basketItems = getItemsByOrder(this.basketItems, this.orderBy);
-           
+            
             const tmp = html`
             <div class="basket-wrapper">
                 ${Object.keys(basketItems).map(fulfillmentType => html`

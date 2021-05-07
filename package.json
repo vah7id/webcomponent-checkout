@@ -32,5 +32,14 @@
         "@lion/input": "^0.14.0",
         "@lion/input-stepper": "^0.5.0",
         "@lion/steps": "^0.8.3"
+    },
+    "jest": {
+        "collectCoverage": true,
+        "testPathIgnorePatterns": [
+            "/__mocks__/"
+        ],
+        "roots": [
+            "<rootDir>/modules/"
+        ]
     }
 }

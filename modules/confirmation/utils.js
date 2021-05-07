@@ -1,5 +1,8 @@
 const isAddressValid = (address) => {
-    return address?.street && address?.city && address?.postalCode;
+    if(address?.street && address?.city && address?.postalCode) {
+        return true;
+    }
+    return false;
 }
 
 export {
